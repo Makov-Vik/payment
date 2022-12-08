@@ -2,13 +2,11 @@ import { Body, Controller, Get, Param, Patch, Post, UseGuards, UsePipes, Req, Ht
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { ValidationPipe } from '../pipe/validation.pipe';
-import { UserService } from '../user/user.service';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, 
-    private userService: UserService,
   ){}
 
   @UsePipes(ValidationPipe)

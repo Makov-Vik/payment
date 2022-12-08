@@ -8,15 +8,6 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcryptjs';
-//import { ENCODING_SALT } from '../constants';
-//import { User } from 'src/user/user.schema';
-//import * as Response from '../response.messages';
-//import { mailer } from '../nodemailer';
-//import * as dotenv from 'dotenv';
-//import * as env from 'env-var';
-//import { User } from '../user/user.model';
-//import { LogService } from '../log/log.service';
-//dotenv.config({path: `.${env.get('NODE_ENV').required().asString()}.env`});
 
 @Injectable()
 export class AuthService {
@@ -25,7 +16,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(userDto: CreateUserDto) {
+
+  async login(userDto: CreateUserDto): Promise<JwtObject> {
     const user = await this.validateUser(userDto);
     if (!user) {
       throw new HttpException({message: "you have not been authenticated yet"}, HttpStatus.FORBIDDEN);
@@ -34,7 +26,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async registration(userDto: CreateUserDto) {
+  async registration(userDto: CreateUserDto): Promise<JwtObject> {
     const candidate = await this.userService.getUserByEmail(userDto.email);
     if (candidate) {
       throw new HttpException({ message: 'user with same email already exist' }, HttpStatus.BAD_REQUEST);
@@ -51,7 +43,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  private async generateToken(user: userSchema) {
+  private generateToken(user: UserSchema): JwtObject  {
     const payload = {
       id: user._id,
       email: user.email,
@@ -61,7 +53,7 @@ export class AuthService {
     };
   }
 
-  private async validateUser(userDto: CreateUserDto) {
+  private async validateUser(userDto: CreateUserDto): Promise<UserSchema> {
     const user = await this.userService.getUserByEmail(userDto.email);
     if (!user) {
       throw new UnauthorizedException('WRONG_EMAIL_OR_PASSWORD');
