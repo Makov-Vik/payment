@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "name": "wallpapers",
+        "price": 3,
+        "description": "this is description",
+        "image": "https://img1.akspic.ru/previews/7/4/4/7/5/157447/157447-vektornaya_grafika-art-cifrovoe_iskusstvo-pejzazhnaya_zhivopis-zhivopis-550x310.jpg"
+    },
+    {
+        "id": 2,
+        "name": "both wallpapers",
+        "price": 4,
+        "description": "this is description",
+        "image": "https://img2.akspic.ru/crops/7/7/8/5/6/165877/165877-minimalizm-rastenie-simvol-logo-derevo-3840x2160.jpg"
+    },
+    {
+        "id": 3,
+        "price": 3,
+        "name": "moving wallpapers",
+        "description": "this is description",
+        "image": "https://img2.akspic.ru/crops/3/3/4/9/59433/59433-illyustrator-betmen-nebo-krylo-siluet-3840x2160.jpg"
+
+    }
+
+]
