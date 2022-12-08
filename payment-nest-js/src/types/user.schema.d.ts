@@ -1,4 +1,4 @@
-interface userSchema {
+interface UserSchema {
   _id: any;
   name: string;
   email: string;

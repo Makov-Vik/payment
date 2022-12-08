@@ -10,16 +10,19 @@ export class UserService {
     @InjectModel('User') private userModel: Model<User>,
   ) {}
 
-  async createUser(dto: CreateUserDto) {    
+  async createUser(dto: CreateUserDto): Promise<UserSchema> {    
     return await this.userModel.create(dto);
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByEmail(email: string): Promise<UserSchema> {
     return await this.userModel.findOne({ email });
   }
 
-  // async addUserProduct(email: string, id: string) {
-  //   return await 
-  // }
+  async addUserProduct(emailUser: string, idProducts: string[]): Promise<unknown> {
+    return this.userModel.updateOne(
+      { email: emailUser },
+      { $push: { subscriptions: { $each: idProducts } } }
+   )
+  }
 
 }

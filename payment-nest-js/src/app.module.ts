@@ -9,7 +9,13 @@ import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
 
 @Module({
-  imports: [PaymentModule, ConfigModule.forRoot(), MongooseModule.forRoot(`${process.env.MONGO_CONNECT_STRING}`), UserModule, AuthModule, ProductModule],
+  imports: [PaymentModule,
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(`${process.env.MONGO_CONNECT_STRING}`),
+    UserModule,
+    AuthModule,
+    ProductModule
+  ],
   controllers: [PaymentController],
   providers: [PaymentService],
 })
