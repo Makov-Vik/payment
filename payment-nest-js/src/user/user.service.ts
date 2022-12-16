@@ -19,7 +19,7 @@ export class UserService {
   }
 
   async addUserProduct(emailUser: string, idProducts: string[]): Promise<unknown> {
-    return this.userModel.updateOne(
+    return await this.userModel.updateOne(
       { email: emailUser },
       { $push: { subscriptions: { $each: idProducts } } }
    )

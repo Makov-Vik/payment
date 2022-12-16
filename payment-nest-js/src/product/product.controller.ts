@@ -13,7 +13,6 @@ export class ProductController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   getAllProducts(): Promise<Product[]> {
     return this.productService.getAllProducts();
   }

@@ -10,7 +10,7 @@ export class AuthController {
   ){}
 
   @UsePipes(ValidationPipe)
-  @Get('/login')
+  @Post('/login')
   login(@Body() userDto: CreateUserDto) {
     return this.authService.login(userDto);
   }
