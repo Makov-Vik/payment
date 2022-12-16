@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "869d0cbd-7c43-4a9a-b3fa-ba7a14e241d5",
+		"name": "payment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18129094"
+	},
+	"item": [
+		{
+			"name": "get all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"price\": 3,\n    \"name\": \"moving wallpapers\",\n    \"description\": \"this is description\",\n    \"image\": \"https://img2.akspic.ru/crops/3/3/4/9/59433/59433-illyustrator-betmen-nebo-krylo-siluet-3840x2160.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase-front",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Lit\",\n    \"email\": \"lit@gmail.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create source",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer pk_test_51M2X8uDcQ6mSK01O9pIpROPUZ6teBqOljgCI5UHpSahK1mzjVM3Xifrktjpe3Dwp0a1t8sECzW75zq8xps30eU4600cyWChiSV",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "card",
+							"type": "text"
+						},
+						{
+							"key": "card[number]",
+							"value": "4242424242424242",
+							"type": "text"
+						},
+						{
+							"key": "card[cvc]",
+							"value": "000",
+							"type": "text"
+						},
+						{
+							"key": "card[exp_month]",
+							"value": "11",
+							"type": "text"
+						},
+						{
+							"key": "card[exp_year]",
+							"value": "24",
+							"type": "text"
+						},
+						{
+							"key": "owner[address][postal_code]",
+							"value": "00000",
+							"type": "text"
+						},
+						{
+							"key": "owner[email]",
+							"value": "somemail@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.stripe.com/v1/sources",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stripe",
+						"com"
+					],
+					"path": [
+						"v1",
+						"sources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "payment-back",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer pk_test_51M2X8uDcQ6mSK01O9pIpROPUZ6teBqOljgCI5UHpSahK1mzjVM3Xifrktjpe3Dwp0a1t8sECzW75zq8xps30eU4600cyWChiSV",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"products\": [{\n        \"id\": 1,\n        \"name\": \"wallpapers\",\n        \"price\": 3,\n        \"quantity\": 1\n    }],\n    \"currency\": \"usd\",\n    \"sourse\": \"src_1M96EVDcQ6mSK01OeaNtvuVz\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "attach source to customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer sk_test_51M2X8uDcQ6mSK01ONYjf8h8Nc6VgHjgwnS90pGEpSsdZ8OEGQaJN4GoLrkc37Y9H4JwbhERVq34nVx92k7EXAICk00Ppem5rbu",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "source",
+							"value": "src_1MABKmDcQ6mSK01OJCAAJDE6",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.stripe.com/v1/customers/:customer/sources",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stripe",
+						"com"
+					],
+					"path": [
+						"v1",
+						"customers",
+						":customer",
+						"sources"
+					],
+					"variable": [
+						{
+							"key": "customer",
+							"value": "cus_MtzVedi6aTUfXD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer sk_test_51M2X8uDcQ6mSK01ONYjf8h8Nc6VgHjgwnS90pGEpSsdZ8OEGQaJN4GoLrkc37Y9H4JwbhERVq34nVx92k7EXAICk00Ppem5rbu",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.stripe.com/v1/customers",
+					"protocol": "https",
+					"host": [
+						"api",
+						"stripe",
+						"com"
+					],
+					"path": [
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"man\",\n    \"email\": \"man@gmail.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
