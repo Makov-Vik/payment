@@ -18,29 +18,36 @@ export class AuthService {
 
 
   async login(userDto: CreateUserDto): Promise<JwtObject> {
-    const user = await this.validateUser(userDto);
-    if (!user) {
-      throw new HttpException({message: "you have not been authenticated yet"}, HttpStatus.FORBIDDEN);
-    }
+    try {
+      const user = await this.validateUser(userDto);
+      if (!user) {
+        throw new HttpException({message: "you have not been authenticated yet"}, HttpStatus.FORBIDDEN);
+      }
 
-    return this.generateToken(user);
+      return this.generateToken(user);      
+    } catch (e) {
+      return e
+    }
   }
 
   async registration(userDto: CreateUserDto): Promise<JwtObject> {
-    const candidate = await this.userService.getUserByEmail(userDto.email);
-    if (candidate) {
-      throw new HttpException({ message: 'user with same email already exist' }, HttpStatus.BAD_REQUEST);
+    try {
+      const candidate = await this.userService.getUserByEmail(userDto.email);
+      if (candidate) {
+        throw new HttpException({ message: 'user with same email already exist' }, HttpStatus.BAD_REQUEST);
+      }
+
+      //maybe ENCODING_SALT must be in constant file instead
+      const hashPassword = await bcrypt.hash(userDto.password, 7);
+      const user = await this.userService.createUser({
+        ...userDto,
+        password: hashPassword,
+      });
+      
+      return this.generateToken(user);      
+    } catch (e) {
+      return e
     }
-
-    //maybe ENCODING_SALT must be in constant file instead
-    const hashPassword = await bcrypt.hash(userDto.password, 7);
-    const user = await this.userService.createUser({
-      ...userDto,
-      password: hashPassword,
-    });
-    
-
-    return this.generateToken(user);
   }
 
   private generateToken(user: UserSchema): JwtObject  {

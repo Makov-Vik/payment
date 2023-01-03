@@ -8,7 +8,6 @@ describe("create-getAll products", () => {
   it("create product", async () => {
 
     const result = await axios.post(`${baseUrl}/product`, newProduct);
-    console.log(result.data, '!!!');
     expect(result.data).toMatchObject({
       id: expect.any(Number),
       name: expect.any(String),
