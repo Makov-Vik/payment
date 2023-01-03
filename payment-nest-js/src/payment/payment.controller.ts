@@ -7,17 +7,16 @@ export class PaymentController {
   constructor(private paymentService: PaymentService) { }
 
   @Post()
-  createPayment(
+  async createPayment(
     @Res() response: Response,
     @Body() paymentRequestBody: PaymentRequestBody,
   ) {
-    this.paymentService
+    try {
+      const res = await this.paymentService
       .createPayment(paymentRequestBody)
-      .then((res) => {
-        response.status(HttpStatus.CREATED).json(res);
-      })
-      .catch((err) => {
-        response.status(HttpStatus.BAD_REQUEST).json(err);
-      });
+      return response.status(HttpStatus.CREATED).json(res);
+    } catch(e) {
+      response.status(HttpStatus.BAD_REQUEST).json(e);
+    }
   }
 }
